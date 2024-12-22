@@ -1,13 +1,25 @@
-#Blog
-## This is a web application for uploading and reading blog
-## In this app I used appwrirte for backend services 
+# Blog
+
+## This is a React application for uploading and reading blog
+
+- Redux is used for state management
+
+- Appwrite is used for backend services and authentication
+
+- Tinymce is used for the text editor 
+
+- html react parser is used for parsing html in blogs
+
+- React-hook-forms is used for optimised form handelling
 
 
 
 
 
 
-# React + Vite
+
+
+## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
