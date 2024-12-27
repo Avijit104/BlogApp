@@ -84,5 +84,5 @@ export class DatabaseServices {
   }
 }
 
-const database = new DatabaseServices();
-export default database;
+const databaseServices = new DatabaseServices();
+export default databaseServices;
