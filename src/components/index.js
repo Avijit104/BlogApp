@@ -11,6 +11,7 @@ import Login from "./Login/Login";
 import Signup from "./Signup/Signup";
 import Rte from "./Rte";
 import BlogForm from "./BlogForm/BlogForm";
+import AuthLayout from "./AuthLayout";
 
 export {
     Header,
@@ -25,5 +26,6 @@ export {
     Login,
     Signup,
     Rte,
-    BlogForm
+    BlogForm,
+    AuthLayout
 }

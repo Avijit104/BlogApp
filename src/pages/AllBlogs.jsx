@@ -6,7 +6,7 @@ import { useState } from "react";
 function AllBlogs() {
   const [blogs, setBlogs] = useState([]);
   useEffect(() => {}, []);
-  databaseServices.getBlog([]).then((blogs) => {
+  databaseServices.listBlog().then((blogs) => {
     if (blogs) {
       setBlogs(blogs.documents);
     }

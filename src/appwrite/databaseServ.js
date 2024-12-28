@@ -1,6 +1,5 @@
 import Environment from "../environment/Environment";
 import { Client, Databases, Query } from "appwrite";
-import Environment from "../environment/Environment";
 
 export class DatabaseServices {
   dataClient = new Client();

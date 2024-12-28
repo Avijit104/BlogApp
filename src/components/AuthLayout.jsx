@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 
 
-function Protected({children, authentication = true}) {
+function AuthLayout({children, authentication = true}) {
     const navigate = useNavigate()
     const [loader, setLoader] = useState(true)
     const authStatus = useSelector(state => state.auth.status)
@@ -21,4 +21,4 @@ function Protected({children, authentication = true}) {
   )
 }
 
-export default Protected
+export default AuthLayout
