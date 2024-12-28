@@ -30,5 +30,5 @@ export class BucketServise {
   }
 }
 
-const bucketServise = new BucketServise();
-export default bucketServise;
+const bucketService = new BucketServise();
+export default bucketService;
