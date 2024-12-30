@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./App.css";
+// import "./App.css";
 import authServices from "./appwrite/authServ";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -8,7 +8,7 @@ import { Outlet } from "react-router";
 import { Header, Footer } from "./components";
 
 function App() {
-  const [loading, setLoading] = useState(false); //this shoud be set true
+  const [loading, setLoading] = useState(true); //this shoud be set true
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,13 +22,14 @@ function App() {
         }
       })
       .finally(() => {
-        setLoading((prev) => !prev);
+        setLoading(false);
       });
+    setLoading(false)
   }, []);
 
   return !loading ? (
     <div className="min-h-screen bg-gray-800 flex flex-wrap content-between text-white">
-      <div className="w-full block border-2 border-red-100">
+      <div className="w-full">
         <Header />
         <main>
           <Outlet />
@@ -38,7 +39,6 @@ function App() {
     </div>
   ) : (
     <div className="min-h-screen bg-gray-800 flex flex-wrap content-between text-white">
-      this is shit
     </div>
   );
 }

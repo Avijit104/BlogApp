@@ -3,7 +3,7 @@ import { Login } from "../components";
 
 function LoginPage() {
   return (
-    <div className="py-8" >
+    <div className="py-20 h-screen" >
       <Login />
     </div>
   );

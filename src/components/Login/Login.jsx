@@ -31,16 +31,47 @@ function Login() {
       <div
         className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}
       >
-        <div className="mb-2 flex justify-center">
-          <span className="inline-block w-full max-w-[100px]">
+        <div className="mb-2 flex w-5/6 justify-center space-x-5 mx-auto">
+          <span className="inline-block max-w-[50px]">
             <Logo width="100%" />
           </span>
+          <h2 className="text-center text-2xl py-2 font-bold leading-tight text-black">
+            Login to your account
+          </h2>
         </div>
-        <h2 className="text-center font-bold leading-tight text-2xl">
-          Sign in to your account
-        </h2>
+        <div className="h-px w-full bg-gray-800 mb-8" ></div>
+        {error && <p className="mt-8 text-center text-red-700">{error}</p>}
+        <form className="mt-6" onSubmit={handleSubmit(formLogin)}>
+          <div className="space-y-5">
+            <Input
+              labelText="Email :"
+              type="email"
+              placeholder="Enter your Email"
+              {...register("email", {
+                required: true,
+                validate: {
+                  matchPatern: (value) =>
+                    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                    setError("Email address must be a valid address"),
+                },
+              })}
+            />
+
+            <Input
+              labelText="Password :"
+              type="password"
+              placeholder="Enter your passowrd"
+              {...register("password", {
+                required: true,
+              })}
+            />
+            <Button className="w-full" type="submit">
+              Login
+            </Button>
+          </div>
+        </form>
         <p className="mt-2 text-center text-base text-black/60">
-          don&apos;t have any account
+          don&apos;t have any account &nbsp;
           <Link
             to="/signup"
             className="font-medium text-primary transition-all duration-200 hover:underline"
@@ -48,35 +79,6 @@ function Login() {
             Sign Up
           </Link>
         </p>
-        {error && <p className="mt-8 text-center text-red-700">{error}</p>}
-        <form className="mt-8" onSubmit={handleSubmit(formLogin)}>
-          <div className="space-y-5">
-            <Input
-              labelText="Email"
-              type="email"
-              placeholder="enter your Email"
-              {...register("email", {
-                required: true,
-                validate: {
-                  matchPattern: (value) =>
-                    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-                      value
-                    ) || "enter a valuid email address",
-                },
-              })}
-            />
-
-            <Input
-              labelText="Password"
-              type="password"
-              placeholder="Enter your passowrd"
-              {...register("password", {
-                required: true,
-              })}
-            />
-            <Button className="w-full" type="submit" >Login</Button>
-          </div>
-        </form>
       </div>
     </div>
   );

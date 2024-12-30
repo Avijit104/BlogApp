@@ -3,15 +3,15 @@ import { useDispatch } from 'react-redux'
 import authServices from '../../appwrite/authServ'
 import { logout } from '../../sotre/authSlice'  
 
-function LogoutBtn() {
+function LogoutBtn({className}) {
     const dispatch = useDispatch()
     const logoutHandle = () => {
-        authServices.authLogout.then(() => {
+        authServices.authLogout().then(() => {
             dispatch(logout())
         })
     }
   return (
-    <button>Logout</button>
+    <button onClick={logoutHandle} className={className}>Logout</button>
   )
 }
 

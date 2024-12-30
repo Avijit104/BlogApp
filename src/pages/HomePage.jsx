@@ -1,28 +1,35 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import databaseServices from "../appwrite/databaseServ";
-import { Container } from "postcss";
+import { Container, BlogCard } from "../components";
+import { useSelector } from "react-redux";
 
 function HomePage() {
   const [blogs, setBlogs] = useState([]);
-
+  const authStatus = useSelector((state) => state.auth.isLogin);
   useEffect(() => {
     databaseServices.listBlog().then((blog) => {
-      if (blog) {
+      if (blog) { 
         setBlogs(blog.documents);
       }
     });
   }, []);
-
+ console.log(blogs)
   if (blogs.length === 0) {
     return (
-      <div className="w-full py-8 mt-4 text-center">
+      <div className="w-full h-screen mt-52 py-8  text-center">
         <Container>
           <div className="flex flex-wrap">
             <div className="p-2 w-full">
-              <h1 className="text-2xl font-bold hover:text-gray-500">
-                Login to read posts
-              </h1>
+              {authStatus ? (
+                <h1 className="text-4xl font-bold hover:text-gray-500">
+                  Wellcome.....
+                </h1>
+              ) : (
+                <h1 className="text-4xl font-bold hover:text-gray-500">
+                  Login to see Blogs
+                </h1>
+              )}
             </div>
           </div>
         </Container>
@@ -30,18 +37,20 @@ function HomePage() {
     );
   }
   return (
-    <div className="w-full py-8" >
-        <Container>
-            <div className="flex flex-wrap">
-                {blogs.map((blog) => (
-                    <div className="p-2 w-1/4" key={blog.$id}>
-                        <BlogCard blog={blog} />
-                    </div>
-                ))}
-            </div>
-        </Container>
+    <div className="w-full h-full py-8">
+      <Container>
+        <div className="flex flex-wrap">
+          {blogs.map((blog) => 
+            {
+              console.log(typeof blog)
+              return (<div className="p-2 w-1/4" key={blog.$id}>
+              <BlogCard {...blog} />
+            </div>)}
+          )}
+        </div>
+      </Container>
     </div>
-  )
+  );
 }
 
 export default HomePage;

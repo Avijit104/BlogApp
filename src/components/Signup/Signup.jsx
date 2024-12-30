@@ -15,12 +15,17 @@ function Signup() {
   const formSignup = async (data) => {
     setError("");
     try {
-      const session = await authServices.authAccount(data);
+      console.log("signup.try");
+      console.log(data);
+      const session = await authServices.createAccount({ ...data });
       if (session) {
+        console.log("signup.session");
         const userData = await authServices.getUserAccount();
         if (userData) {
+          console.log("signup.userdata");
           dispatch(login(userData));
         }
+        console.log("signup.navigate");
         navigate("/");
       }
     } catch (error) {
@@ -32,28 +37,20 @@ function Signup() {
       <div
         className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}
       >
-        <div className="mb-2 flex justify-center">
-          <span className="inline-block w-full max-w-[100px]">
+        <div className="mb-2 flex w-5/6 justify-center space-x-5 mx-auto">
+          <span className="inline-block max-w-[50px]">
             <Logo width="100%" />
           </span>
+          <h2 className="text-center text-2xl py-2 font-bold leading-tight text-black">
+            Create to your account
+          </h2>
         </div>
-        <h2 className="text-center text-2xl font-bold leading-tight">
-          Sign in to your account
-        </h2>
-        <p className="mt-2 text-center text-base text-black/60">
-          Already have an account
-          <Link
-            to="/login"
-            className="font-medium text-primary transition-all duration-200 hover:underline"
-          >
-            Sign In
-          </Link>
-        </p>
+        <div className="h-px w-full bg-gray-800 mb-8" ></div>
         {error && <p className="mt-8 text-center text-red-700">{error}</p>}
-        <form onSubmit={handleSubmit(Signup)}>
+        <form onSubmit={handleSubmit(formSignup)}>
           <div className="space-y-5">
             <Input
-              labelText="name"
+              labelText="Name :"
               type="text"
               placeholder="Enter your name"
               {...register("name", {
@@ -61,21 +58,20 @@ function Signup() {
               })}
             />
             <Input
-              labelText="Email"
+              labelText="Email :"
               type="email"
-              placeholder="enter your Email"
+              placeholder="Enter your Email"
               {...register("email", {
                 required: true,
                 validate: {
-                  matchPattern: (value) =>
-                    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-                      value
-                    ) || "enter a valuid email address",
+                  matchPatern: (value) =>
+                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ||
+                    "Email address must be a valid address",
                 },
               })}
             />
             <Input
-              labelText="Password"
+              labelText="Password :"
               type="password"
               placeholder="Enter your password"
               {...register("password", {
@@ -87,6 +83,15 @@ function Signup() {
             </Button>
           </div>
         </form>
+        <p className="mt-2 text-center text-base text-black/60">
+          Already have an account &nbsp;
+          <Link
+            to="/login"
+            className="font-medium text-primary transition-all duration-200 hover:underline"
+          >
+            Sign In
+          </Link>
+        </p>
       </div>
     </>
   );

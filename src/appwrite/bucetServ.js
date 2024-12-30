@@ -26,7 +26,7 @@ export class BucketServise {
   }
 
   async getImagePreview(fileId) {
-    return await this.bucket.getFilePreview(Environment.bucketId, fileId);
+    return this.bucket.getFilePreview(Environment.bucketId, fileId);
   }
 }
 

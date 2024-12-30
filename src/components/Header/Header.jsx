@@ -5,7 +5,7 @@ import { Logo, LogoutBtn, Container } from "../index";
 
 
 function Header() {
-  const authStatus = useSelector((state) => state.isLogin);
+  const authStatus = useSelector((state) => state.auth.isLogin);
   const navigate = useNavigate();
   const navItems = [
     {
@@ -24,12 +24,12 @@ function Header() {
       active: !authStatus,
     },
     {
-      name: "all post",
+      name: "all blogs",
       slug: "/all-blogs",
       active: authStatus,
     },
     {
-      name: "add post",
+      name: "add blogs",
       slug: "/add-blogs",
       active: authStatus,
     },
@@ -43,7 +43,7 @@ function Header() {
               <Logo />
             </Link>
           </div>
-          <ul className="flex ml-auto">
+          <ul className="flex ml-auto  pt-1">
             {navItems.map((item) =>
               item.active ? (
                 <li key={item.name}>
@@ -59,13 +59,14 @@ function Header() {
             {
               authStatus && (
                 <li>
-                  <LogoutBtn />
+                  <LogoutBtn className = "inline-block px-6 py-2 duration-200 hover:bg-green-600 rounded-full" />
                 </li>
               )
             }
           </ul>
         </nav>
       </Container>
+      <div className="w-full h-1 bg-green-600 mt-3"  ></div>
     </header>
   );
 }

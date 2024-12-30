@@ -1,10 +1,10 @@
 import React, { forwardRef, useId } from "react";
 
-function Select({ options = [], label, className = "", ...props }, ref) {
+function Select({ options = [], labelText, className = "", ...props }, ref) {
   const id = useId();
   return (
-    <div className="w-full">
-      {label && <label htmlFor={id} className=""></label>}
+    <div className="w-full text-black">
+      {labelText && <label htmlFor={id} className="">{labelText}</label>}
       <select
         name={id}
         id={id}

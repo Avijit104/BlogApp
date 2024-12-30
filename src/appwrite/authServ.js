@@ -14,9 +14,9 @@ export class AuthServices {
     try {
       const userAccount = await this.authAccount.create(
         ID.unique(),
-        name,
         email,
-        password
+        password,
+        name
       );
       if (userAccount) {
         //here we will be calling another method because we want to directly login after account creation
@@ -25,15 +25,15 @@ export class AuthServices {
         return userAccount;
       }
     } catch (error) {
-      throw error;
+      console.log("Appwrite :: Auth :: createAccount :: ", error)
     }
   }
 
-  async authLogin({ email, password }) {
+  async authLogin(credentials) {
     try {
-      return await this.authAccount.createEmailPasswordSession(email, password);
+      return await this.authAccount.createEmailPasswordSession(credentials.email, credentials.password);
     } catch (error) {
-      throw error;
+      console.log("Appwrite :: Auth :: authLogin :: ", error)
     }
   }
   async getUserAccount() {
@@ -45,14 +45,17 @@ export class AuthServices {
         return null;
       }
     } catch (error) {
+      console.log(Environment.endpointUrl)
+      console.log(Environment.projectId)
       console.log("Appwrite :: Auth :: getUserAccount :: ", error)
     }
   }
   async authLogout() {
     try {
+       console.log("logout")
       await this.authAccount.deleteSessions();
     } catch (error) {
-      throw error;
+      console.log("Appwrite :: Auth :: authLogout :: ", error)
     }
   }
 }
