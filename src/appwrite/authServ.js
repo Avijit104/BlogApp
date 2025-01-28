@@ -20,7 +20,7 @@ export class AuthServices {
       );
       if (userAccount) {
         //here we will be calling another method because we want to directly login after account creation
-        this.authLogin({ email, password });
+        return this.authLogin({ email, password });
       } else {
         return userAccount;
       }

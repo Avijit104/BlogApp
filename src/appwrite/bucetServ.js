@@ -5,13 +5,19 @@ export class BucketServise {
   bucketClient = new Client();
   bucket;
   constructor() {
-    this.bucketClient.setEndpoint(Environment.endpointUrl).setProject(Environment.projectId);
+    this.bucketClient
+      .setEndpoint(Environment.endpointUrl)
+      .setProject(Environment.projectId);
     this.bucket = new Storage(this.bucketClient);
   }
 
   async uploadImage(file) {
     try {
-      return await this.bucket.createFile(Environment.bucketId, ID.unique(), file);
+      return await this.bucket.createFile(
+        Environment.bucketId,
+        ID.unique(),
+        file
+      );
     } catch (error) {
       throw error;
     }
@@ -26,7 +32,14 @@ export class BucketServise {
   }
 
   async getImagePreview(fileId) {
-    return this.bucket.getFilePreview(Environment.bucketId, fileId);
+    console.log("this is an error");
+    console.log(fileId);
+    const pre = this.bucket.getFilePreview(
+      Environment.bucketId,
+      fileId
+    );
+    console.log(pre);
+    return pre;
   }
 }
 

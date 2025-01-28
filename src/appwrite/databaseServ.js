@@ -12,7 +12,7 @@ export class DatabaseServices {
 
   async createBlog({ title, content, image, status, userid, slug }) {
     try {
-      await this.database.createDocument(
+      return await this.database.createDocument(
         Environment.databaseId,
         Environment.collectionId,
         slug,
@@ -31,7 +31,7 @@ export class DatabaseServices {
 
   async updateBlog(slug, { title, content, image, status, userid }) {
     try {
-      await this.database.updateDocument(
+      return await this.database.updateDocument(
         Environment.databaseId,
         Environment.collectionId,
         slug,

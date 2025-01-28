@@ -7,23 +7,27 @@ import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 
 function BlogForm({ post }) {
+  console.log("post")
+  console.log(post)
+  // console.log(post.content)
+
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
-  const { register, handleSubmit, watch, setValue, control, getValues } =
-    useForm({
+
+  const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
       defaultValues: {
         title: post?.title || "",
-        slug: post?.slug || "",
+        slug: post?.$id || "",
         content: post?.content || "",
         status: post?.status || "active",
       },
     });
 
-    console.log(post.title)
 
   const submit = async (data) => {
     console.log(userData)
     if (post) {
+      console.log("post update")
       const file = data.image[0]
         ? bucketService.uploadImage(data.image[0])
         : null;
@@ -34,20 +38,25 @@ function BlogForm({ post }) {
         ...data,
         image: file ? await file.$id : undefined,
       });
+      console.log(dbPost)
       if (dbPost) {
         navigate(`/blog/${post.$id}`);
       }
     } else {
+      console.log("else");
+      
       const file = await bucketService.uploadImage(data.image[0]);
       if (file) {
+        console.log("file")
         const fileId = file.$id;
         data.image = fileId;
         const dbPost = await databaseServices.createBlog({
           ...data,
           userid: userData.$id,
         });
-        console.log(dbPost)
+        console.log("dbpost", dbPost)
         if (dbPost) {
+          console.log("this is love")
           navigate(`/blog/${dbPost.$id}`);
         }
       }

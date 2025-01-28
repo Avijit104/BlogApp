@@ -43,7 +43,6 @@ export default function Blogs() {
             alt={post.title}
             className="rounded-xl"
           />
-
           {isAuthor && (
             <div className="absolute right-6 top-6">
               <Link to={`/edit-blogs/${post.$id}`}>

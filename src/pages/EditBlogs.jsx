@@ -4,7 +4,7 @@ import { BlogForm, Container } from "../components";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 function EditBlogs() {
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState(null);
   const { slug } = useParams();
   console.log(slug)
   const navigate = useNavigate();

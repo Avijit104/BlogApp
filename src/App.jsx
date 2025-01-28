@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import "./App.css";
 import authServices from "./appwrite/authServ";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -24,7 +23,6 @@ function App() {
       .finally(() => {
         setLoading(false);
       });
-    setLoading(false)
   }, []);
 
   return !loading ? (

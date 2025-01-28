@@ -9,12 +9,11 @@ function HomePage() {
   const authStatus = useSelector((state) => state.auth.isLogin);
   useEffect(() => {
     databaseServices.listBlog().then((blog) => {
-      if (blog) { 
+      if (blog) {
         setBlogs(blog.documents);
       }
     });
   }, []);
- console.log(blogs)
   if (blogs.length === 0) {
     return (
       <div className="w-full h-screen mt-52 py-8  text-center">
@@ -40,13 +39,13 @@ function HomePage() {
     <div className="w-full h-full py-8">
       <Container>
         <div className="flex flex-wrap">
-          {blogs.map((blog) => 
-            {
-              console.log(typeof blog)
-              return (<div className="p-2 w-1/4" key={blog.$id}>
-              <BlogCard {...blog} />
-            </div>)}
-          )}
+          {blogs.map((blog) => {
+            return (
+              <div className="p-2 w-1/4" key={blog.$id}>
+                <BlogCard {...blog} />
+              </div>
+            );
+          })}
         </div>
       </Container>
     </div>
