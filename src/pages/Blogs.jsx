@@ -8,8 +8,9 @@ import { useSelector } from "react-redux";
 
 export default function Blogs() {
   const [post, setPost] = useState(null);
+  const [url, setUrl] = useState(null);
   const { slug } = useParams();
-  console.log(slug)
+  console.log(slug);
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.userData);
@@ -19,10 +20,19 @@ export default function Blogs() {
   useEffect(() => {
     if (slug) {
       databaseServices.getBlog(slug).then((post) => {
-        if (post) setPost(post);
-        else navigate("/");
+        if (post) {
+          const href = bucketService.getImagePreview(post.image);
+          href.then((imageUrl) => {
+            setUrl(imageUrl);
+          });
+          setPost(post);
+        } else {
+          navigate("/");
+        }
       });
-    } else navigate("/");
+    } else {
+      navigate("/");
+    }
   }, [slug, navigate]);
 
   const deletePost = () => {
@@ -38,11 +48,7 @@ export default function Blogs() {
     <div className="py-8">
       <Container>
         <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
-          <img
-            src={bucketService.getImagePreview(post.image)}
-            alt={post.title}
-            className="rounded-xl"
-          />
+          <img src={url} alt={post.title} className="rounded-xl" />
           {isAuthor && (
             <div className="absolute right-6 top-6">
               <Link to={`/edit-blogs/${post.$id}`}>

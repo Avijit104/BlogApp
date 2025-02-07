@@ -9,7 +9,6 @@ function LogoutBtn({className}) {
     const navigate = useNavigate()
     const logoutHandle = () => {
         authServices.authLogout().then(() => {
-          console.log("logouthandle")
             dispatch(logout())
             navigate("/")
         })

@@ -29,7 +29,7 @@ function App() {
     <div className="min-h-screen bg-gray-800 flex flex-wrap content-between text-white">
       <div className="w-full">
         <Header />
-        <main>
+        <main >
           <Outlet />
         </main>
         <Footer />

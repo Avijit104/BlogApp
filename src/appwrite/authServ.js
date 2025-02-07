@@ -26,6 +26,7 @@ export class AuthServices {
       }
     } catch (error) {
       console.log("Appwrite :: Auth :: createAccount :: ", error)
+      throw error;
     }
   }
 
@@ -34,6 +35,7 @@ export class AuthServices {
       return await this.authAccount.createEmailPasswordSession(credentials.email, credentials.password);
     } catch (error) {
       console.log("Appwrite :: Auth :: authLogin :: ", error)
+      throw error
     }
   }
   async getUserAccount() {
@@ -52,7 +54,6 @@ export class AuthServices {
   }
   async authLogout() {
     try {
-       console.log("logout")
       await this.authAccount.deleteSessions();
     } catch (error) {
       console.log("Appwrite :: Auth :: authLogout :: ", error)

@@ -6,7 +6,6 @@ import { useNavigate, useParams } from "react-router";
 function EditBlogs() {
   const [blogs, setBlogs] = useState(null);
   const { slug } = useParams();
-  console.log(slug)
   const navigate = useNavigate();
 
   useEffect(() => {

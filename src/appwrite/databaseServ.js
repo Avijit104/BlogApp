@@ -25,7 +25,7 @@ export class DatabaseServices {
         }
       );
     } catch (error) {
-      throw error;
+      console.log("Appwrite :: Database :: createBlog :: ", error)
     }
   }
 
@@ -44,7 +44,7 @@ export class DatabaseServices {
         }
       );
     } catch (error) {
-      throw error;
+      console.log("Appwrite :: Database :: updateBlog :: ", error)
     }
   }
 
@@ -53,7 +53,7 @@ export class DatabaseServices {
       this.database.deleteDocument(Environment.databaseId, Environment.collectionId, slug);
       return true;
     } catch (error) {
-      throw error;
+      console.log("Appwrite :: Database :: deleteBlog :: ", error)
       return false;
     }
   }
@@ -66,7 +66,7 @@ export class DatabaseServices {
         slug
       );
     } catch (error) {
-      throw error;
+      console.log("Appwrite :: Database :: getBlog :: ", error)
     }
   }
 
@@ -78,7 +78,7 @@ export class DatabaseServices {
         querise
       );
     } catch (error) {
-      throw error;
+      console.log("Appwrite :: Database :: listBlog :: ", error)
     }
   }
 }

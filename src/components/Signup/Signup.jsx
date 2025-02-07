@@ -15,18 +15,12 @@ function Signup() {
   const formSignup = async (data) => {
     setError("");
     try {
-      console.log("signup.try");
-      console.log(data);
       const session = await authServices.createAccount({ ...data });
-      console.log(session)
       if (session) {
-        console.log("signup.session");
         const userData = await authServices.getUserAccount();
         if (userData) {
-          console.log("signup.userdata");
           dispatch(login(userData));
         }
-        console.log("signup.navigate");
         navigate("/");
       }
     } catch (error) {

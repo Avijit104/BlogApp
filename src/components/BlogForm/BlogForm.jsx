@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, Select, Rte } from "../index";
 import databaseServices from "../../appwrite/databaseServ";
@@ -7,14 +7,20 @@ import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 
 function BlogForm({ post }) {
-  console.log("post")
-  console.log(post)
-  // console.log(post.content)
+  const [url, setUrl] = useState(null);
+
+  if (post) {
+    const href = bucketService.getImagePreview(post.image);
+    href.then((imageUrl) => {
+      setUrl(imageUrl);
+    });
+  }
 
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
-  const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
+  const { register, handleSubmit, watch, setValue, control, getValues } =
+    useForm({
       defaultValues: {
         title: post?.title || "",
         slug: post?.$id || "",
@@ -23,11 +29,9 @@ function BlogForm({ post }) {
       },
     });
 
-
   const submit = async (data) => {
-    console.log(userData)
+    console.log(userData);
     if (post) {
-      console.log("post update")
       const file = data.image[0]
         ? bucketService.uploadImage(data.image[0])
         : null;
@@ -38,30 +42,26 @@ function BlogForm({ post }) {
         ...data,
         image: file ? await file.$id : undefined,
       });
-      console.log(dbPost)
+      console.log(dbPost);
       if (dbPost) {
         navigate(`/blog/${post.$id}`);
       }
     } else {
-      console.log("else");
-      
       const file = await bucketService.uploadImage(data.image[0]);
       if (file) {
-        console.log("file")
         const fileId = file.$id;
         data.image = fileId;
         const dbPost = await databaseServices.createBlog({
           ...data,
           userid: userData.$id,
         });
-        console.log("dbpost", dbPost)
         if (dbPost) {
-          console.log("this is love")
           navigate(`/blog/${dbPost.$id}`);
         }
       }
     }
   };
+
   const slugTransform = useCallback((value) => {
     if (value && typeof value === "string") {
       return value
@@ -80,19 +80,18 @@ function BlogForm({ post }) {
         setValue("slug", slugTransform(value.title, { shoudValidate: true }));
       }
     });
-
     return () => {
       subscription.unsubscribe();
     };
   }, [watch, slugTransform, setValue]);
+  
   return (
-    <div className="`mx-auto w-full  bg-gray-100 rounded-xl p-10 border border-black/10" >
-      <h1 className="text-center text-3xl py-2 font-bold leading-tight text-black">Create Blog</h1>
-      <div className="h-px w-full bg-gray-800 mb-8" ></div>
-      <form
-        onSubmit={handleSubmit(submit)}
-        className="flex flex-wrap "
-      >
+    <div className="`mx-auto w-full  bg-gray-100 rounded-xl p-10 border border-black/10">
+      <h1 className="text-center text-3xl py-2 font-bold leading-tight text-black">
+        Create Blog
+      </h1>
+      <div className="h-px w-full bg-gray-800 mb-8"></div>
+      <form onSubmit={handleSubmit(submit)} className="flex flex-wrap ">
         <div className="w-2/3 px-2 ">
           <Input
             labelText="Title :"
@@ -129,11 +128,7 @@ function BlogForm({ post }) {
           />
           {post && (
             <div className="w-full mb-4 text-black">
-              <img
-                src={bucketService.getImagePreview(post.image)}
-                alt={post.title}
-                className="rounded-lg"
-              />
+              <img src={url} alt={post.title} className="rounded-lg" />
             </div>
           )}
           <Select

@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import bucketServise from "../appwrite/bucetServ";
 import { Link } from "react-router";
 
 function BlogCard({ $id, title, image }) {
-
-  const imagepre = bucketServise.getImagePreview(image)
-  console.log(imagepre)
+  const [url, setUrl] = useState(null)
+  const href = bucketServise.getImagePreview(image)
+  href.then((imageUrl) => {
+    setUrl(imageUrl)
+  })
   return (
     <Link to={`/blog/${$id}`}>
       <div className="w-full bg-gray-100 rounded-xl text-black p-4">
         <div className="w-full justify-center mb-4">
-          <img src={imagepre} alt={$id} />
+          <img src={url} alt={$id} width={400} height={2000} />
         </div>
         <h2>{title}</h2>
       </div>

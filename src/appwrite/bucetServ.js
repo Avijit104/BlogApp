@@ -19,27 +19,25 @@ export class BucketServise {
         file
       );
     } catch (error) {
-      throw error;
+      console.log("Appwrite :: Bucket :: uploadImage :: ", error)
     }
   }
+  
   async deleteImage(fileId) {
     try {
       await this.bucket.deleteFile(Environment.bucketId, fileId);
       return true;
     } catch (error) {
-      throw error;
+      console.log("Appwrite :: Bucket :: deleteImage :: ", error)
     }
   }
 
   async getImagePreview(fileId) {
-    console.log("this is an error");
-    console.log(fileId);
-    const pre = this.bucket.getFilePreview(
+    const result= this.bucket.getFilePreview(
       Environment.bucketId,
       fileId
     );
-    console.log(pre);
-    return pre;
+    return result.href;
   }
 }
 
