@@ -19,24 +19,21 @@ export class BucketServise {
         file
       );
     } catch (error) {
-      console.log("Appwrite :: Bucket :: uploadImage :: ", error)
+      console.log("Appwrite :: Bucket :: uploadImage :: ", error);
     }
   }
-  
+
   async deleteImage(fileId) {
     try {
       await this.bucket.deleteFile(Environment.bucketId, fileId);
       return true;
     } catch (error) {
-      console.log("Appwrite :: Bucket :: deleteImage :: ", error)
+      console.log("Appwrite :: Bucket :: deleteImage :: ", error);
     }
   }
 
   async getImagePreview(fileId) {
-    const result= this.bucket.getFilePreview(
-      Environment.bucketId,
-      fileId
-    );
+    const result = this.bucket.getFilePreview(Environment.bucketId, fileId);
     return result.href;
   }
 }
