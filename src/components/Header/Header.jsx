@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router";
 import { Logo, LogoutBtn, Container } from "../index";
 
-
 function Header() {
   const authStatus = useSelector((state) => state.auth.isLogin);
   const navigate = useNavigate();
@@ -39,8 +38,9 @@ function Header() {
       <Container>
         <nav className="flex ">
           <div className="mr-4">
-            <Link to="/">
+            <Link to="/" className="flex items-center gap-3">
               <Logo />
+              <h2 className="text-xl font-bold">BlogNest</h2>
             </Link>
           </div>
           <ul className="flex ml-auto  pt-1">
@@ -54,19 +54,17 @@ function Header() {
                     {item.name}
                   </button>
                 </li>
-              ) : (null)
+              ) : null
             )}
-            {
-              authStatus && (
-                <li>
-                  <LogoutBtn className = "inline-block px-6 py-2 duration-200 hover:bg-green-600 rounded-full" />
-                </li>
-              )
-            }
+            {authStatus && (
+              <li>
+                <LogoutBtn className="inline-block px-6 py-2 duration-200 hover:bg-green-600 rounded-full" />
+              </li>
+            )}
           </ul>
         </nav>
       </Container>
-      <div className="w-full h-1 bg-green-600 mt-3"  ></div>
+      <div className="w-full h-1 bg-green-600 mt-3"></div>
     </header>
   );
 }
